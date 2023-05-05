@@ -32,16 +32,25 @@
       var parElement = document.getElementById('list of items');
       var childElement = document.createElement('li');
       var deleteBtn = document.createElement('input');
-      //var editBtn =  document.createElement('input');
+      var editBtn =  document.createElement('input');
       deleteBtn.type = 'button';
       deleteBtn.value = 'Delete';
-      //editBtn.appendChild(document.createTextNode('Edit'));
+      editBtn.type = 'button';
+      editBtn.value = 'Edit';
       childElement.textContent = obj.name + '-' + obj.email;
+      editBtn.onclick = () =>{
+         localStorage.removeItem(obj.email);
+         parElement.removeChild(childElement);
+         var nameInput = document.getElementById('Name');
+         nameInput.value = obj.name;
+         var emailInput = document.getElementById('email');
+         emailInput.value = obj.email;
+      }
       deleteBtn.onclick = () =>{
          localStorage.removeItem(obj.email);
          parElement.removeChild(childElement);
       }
-      //childElement.appendChild(editBtn);
+      childElement.appendChild(editBtn);
       childElement.appendChild(deleteBtn);
       parElement.appendChild(childElement);
     }; 
