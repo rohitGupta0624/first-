@@ -14,9 +14,9 @@
         <input type="text" name="email" id="email" ><br>
         <input type="submit" class="btn btn-dark" value="submit">
       </form> 
-      <ul id="list of item"></ul>
+      <ul id="list of items" class="list-group"></ul>
  <script type="text/javascript">
-    function saveToLocalStorage(event){
+   function saveToLocalStorage(event){
        event.preventDefault();
         let my_email = event.target.email.value;
         var username = event.target.name.value;
@@ -27,13 +27,24 @@
     var obj_serial = JSON.stringify(obj);
     localStorage.setItem(my_email,obj_serial);
     showToScreen(obj);
-    }
+    };
     function showToScreen(obj){
-      var parElement = document.getElementById('list of item');
+      var parElement = document.getElementById('list of items');
       var childElement = document.createElement('li');
+      var deleteBtn = document.createElement('input');
+      //var editBtn =  document.createElement('input');
+      deleteBtn.type = 'button';
+      deleteBtn.value = 'Delete';
+      //editBtn.appendChild(document.createTextNode('Edit'));
       childElement.textContent = obj.name + '-' + obj.email;
+      deleteBtn.onclick = () =>{
+         localStorage.removeItem(obj.email);
+         parElement.removeChild(childElement);
+      }
+      //childElement.appendChild(editBtn);
+      childElement.appendChild(deleteBtn);
       parElement.appendChild(childElement);
-    } 
+    }; 
     
  </script>
  </body>
