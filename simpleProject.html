@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit='toLocalStorage(event)'>
+        <label>Choose Expenseamount</label>
+        <input type="text" id="name" name="name">
+        <label>Choose Description</label>
+        <input type="text" id="Description" name="Description">
+        <label>Choose a Category</label>
+        <input type="text" id="Category" name="Category">
+        <input type="submit"  value="Add Expense" class="btn btn-dark">
+        <ul id="list of items" class="list-group"></ul>
+    </form>
+    <script type="text/javascript">
+        function toLocalStorage(event){
+            event.preventDefault();
+            let myName = event.target.name.value
+            let myPhone_number = event.target.Description.value
+            let myemail = event.target.Category.value
+            let obj = {
+                Expenseamount : myName,
+                Description : myPhone_number,
+                Category : myemail
+            };
+            var my_obj = JSON.stringify(obj);
+            localStorage.setItem(myemail,my_obj);
+            showToScreen(obj)
+        }
+        function showToScreen(obj){
+            var parentElement = document.getElementById('list of items');
+            var li = document.createElement('li');
+            var deleteBtn = document.createElement('input');
+            var editBtn = document.createElement('input');
+            deleteBtn.type = 'button';
+            editBtn.type = 'button';
+            deleteBtn.value = 'Delete';
+            editBtn.value = 'Edit';
+            li.textContent = obj.Expenseamount + '-' + obj.Description + '-' + obj.Category;
+            editBtn.onclick = () =>{
+                localStorage.removeItem(obj.Description);
+                parentElement.removeChild(li);
+                var nameInput = document.getElementById('name');
+                nameInput.value = obj.Expenseamount;
+                var phone_numberInput = document.getElementById('Description');
+                phone_numberInput.value = obj.Description;
+                var emailInput = document.getElementById('Category');
+                emailInput.value = obj.Category;
+            };
+            deleteBtn.onclick = () =>{
+                localStorage.removeItem(obj.Description);
+                parentElement.removeChild(li);
+            };
+            li.appendChild(deleteBtn);
+            li.appendChild(editBtn);
+            parentElement.appendChild(li);
+        };
+
+    </script>
+</body>
+</html>
