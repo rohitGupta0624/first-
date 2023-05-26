@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <form onsubmit="saveToLocalStorage(event)">
+       <label>Name</label><br>
+       <input type="text" name="name" id="Name"><br>
+       <label>E-Mail</label><br>
+       <input type="text" name="email" id="email" ><br>
+       <input type="submit" class="btn btn-dark" value="submit">
+     </form> 
+     <ul id="list of items" class="list-group"></ul>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+<script type="text/javascript">
+  function saveToLocalStorage(event){
+      event.preventDefault();
+       let my_email = event.target.email.value;
+       var username = event.target.name.value;
+       let obj  = {
+       name : username,
+       email : my_email
+   };
+   axios.post("https://crudcrud.com/api/e6d67bd24b0741d4a2f1681cc83775da/appointment",obj)
+         .then((res) =>{
+           showToScreen(res.data);
+           console.log(res)
+         })
+         .catch((err) =>{
+           document.body.innerHTML = document.body.innerHTML + "<h4>Something went wrong<h4/>"
+           console.log(err)
+         })
+   
+   };
+   function showToScreen(obj){
+     var parElement = document.getElementById('list of items');
+     var childElement = document.createElement('li');
+     var deleteBtn = document.createElement('input');
+     var editBtn =  document.createElement('input');
+     deleteBtn.type = 'button';
+     deleteBtn.value = 'Delete';
+     editBtn.type = 'button';
+     editBtn.value = 'Edit';
+     childElement.textContent = obj.name + '-' + obj.email;
+     editBtn.onclick = () =>{
+        localStorage.removeItem(obj.email);
+        parElement.removeChild(childElement);
+        var nameInput = document.getElementById('Name');
+        nameInput.value = obj.name;
+        var emailInput = document.getElementById('email');
+        emailInput.value = obj.email;
+     }
+     deleteBtn.onclick = () =>{
+        localStorage.removeItem(obj.email);
+        parElement.removeChild(childElement);
+     }
+     childElement.appendChild(editBtn);
+     childElement.appendChild(deleteBtn);
+     parElement.appendChild(childElement);
+   }; 
+   
+</script>
+</body>
+</html>
