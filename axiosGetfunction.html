@@ -43,33 +43,34 @@
         .catch((e)=>console.log(e))
    })
 
-   function showToScreen(obj){
-     var parElement = document.getElementById('list of items');
-     var childElement = document.createElement('li');
-     var deleteBtn = document.createElement('input');
-     var editBtn =  document.createElement('input');
-     deleteBtn.type = 'button';
-     deleteBtn.value = 'Delete';
-     editBtn.type = 'button';
-     editBtn.value = 'Edit';
-     childElement.textContent = obj.name + '-' + obj.email;
-     editBtn.onclick = () =>{
-        localStorage.removeItem(obj.email);
-        parElement.removeChild(childElement);
-        var nameInput = document.getElementById('Name');
-        nameInput.value = obj.name;
-        var emailInput = document.getElementById('email');
-        emailInput.value = obj.email;
+   function showToScreen(user){
+     document.getElementById('Name').value = '';
+     document.getElementById('email').value = '';
+     if(localStorage.getItem(user.email)!==null){
+        removefromScreen(user.email)
      }
-     deleteBtn.onclick = () =>{
-        localStorage.removeItem(obj.email);
-        parElement.removeChild(childElement);
-     }
-     childElement.appendChild(editBtn);
-     childElement.appendChild(deleteBtn);
-     parElement.appendChild(childElement);
+     const parElement = document.getElementById('list of items');
+     const childHtml = `<li id = ${user._id}>${user.email} - ${user.name}
+                            <button onclick = deleteUser('${user._id}')>Delete user<button/>
+                            <button onclick = editUser('${user._id}')>Edit user<button/>
+                        <li/>`
+     parElement.innerHTML = parElement.innerHTML + childHtml;
    }; 
-   
+   function deleteUser(userId){
+    axios.delete(`https://crudcrud.com/api/454d593e69ed4acb91f7ea164436d9b4/appointment/${userId}`)
+        .then((res)=>{
+            removefromScreen(userId)
+        })
+        .catch((e)=> console.log(e))
+       // localStorage.removeItem(obj.email)
+   }
+   function removefromScreen(userId){
+        const parNode = document.getElementById('list of items');
+        const childNodeTObeDeleted = document.getElementById(userId);
+        if(childNodeTObeDeleted){
+            parNode.removeChild(childNodeTObeDeleted);
+        }
+   }
 </script>
 </body>
 </html>
