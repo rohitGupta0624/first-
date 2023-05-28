@@ -25,7 +25,7 @@
        name : username,
        email : my_email
    };
-    axios.post('https://crudcrud.com/api/454d593e69ed4acb91f7ea164436d9b4/appointment',obj)
+    axios.post('https://crudcrud.com/api/c78ff9fa7b9c40b7970029d077a69d33/appointment',obj)
         .then((res)=>{
         console.log(res);
         showToScreen(res.data);
@@ -33,7 +33,7 @@
         .catch((e) => console.log(e))
    };
    window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/454d593e69ed4acb91f7ea164436d9b4/appointment')
+    axios.get('https://crudcrud.com/api/c78ff9fa7b9c40b7970029d077a69d33/appointment')
         .then((res)=>{
             console.log(res);
             for(let i=0; i<res.data.length; i++){
@@ -51,26 +51,32 @@
      }
      const parElement = document.getElementById('list of items');
      const childHtml = `<li id = ${user._id}>${user.email} - ${user.name}
-                            <button onclick = deleteUser('${user._id}')>Delete user<button/>
-                            <button onclick = editUser('${user._id}')>Edit user<button/>
+                            <button onclick = deleteUser('${user._id}')>Delete<button/>
+                            <button onclick = editUser('${user.email}','${user.name}','${user._id}')>Edit<button/>
                         <li/>`
      parElement.innerHTML = parElement.innerHTML + childHtml;
    }; 
+   function editUser(useremail,username,userId){
+    document.getElementById('email').value = userId;
+    document.getElementById('Name').value = username;
+    deleteUser(userId);
+    
+   };
    function deleteUser(userId){
-    axios.delete(`https://crudcrud.com/api/454d593e69ed4acb91f7ea164436d9b4/appointment/${userId}`)
+    axios.delete(`https://crudcrud.com/api/c78ff9fa7b9c40b7970029d077a69d33/appointment/${userId}`)
         .then((res)=>{
             removefromScreen(userId)
         })
         .catch((e)=> console.log(e))
        // localStorage.removeItem(obj.email)
-   }
+   };
    function removefromScreen(userId){
         const parNode = document.getElementById('list of items');
         const childNodeTObeDeleted = document.getElementById(userId);
         if(childNodeTObeDeleted){
             parNode.removeChild(childNodeTObeDeleted);
         }
-   }
+   };
 </script>
 </body>
 </html>
