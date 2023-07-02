@@ -1,11 +1,9 @@
-var a,b;
-var demo = (a,b) =>{
-    let product = a*b;
-    console.log(product); 
-}
-demo(3,4);
-let student = {
-   name : 'Rohit',
-   age : '21'
-}
-console.log(student);
+
+
+const demo = require('http');
+const server = demo.createServer((req,res)=>{
+    console.log(req);
+    res = 'Rohit';
+    console.log(res);
+})
+server.listen(4000);
