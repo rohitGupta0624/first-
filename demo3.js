@@ -1,5 +1,12 @@
-const demo = require('http');
-const routw = require('./route');
-console.log(routw.sometext)
-const server = demo.createServer(routw.handler);
-server.listen(7001);
+
+const ex = require('express');
+const app = ex();
+app.use((req,res,next) => {
+    console.log('this is middle');
+    next();
+});
+app.use((req,res,next) => {
+    console.log('this is another middleware');
+    res.send( { key1: value });
+});
+app.listen(7001);
