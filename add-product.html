@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 3rem;
+            padding: 0 1.5rem;
+            font-family: sans-serif;
+        } 
+        .main-header{
+            height: 3rem;
+            width: 100;
+            background-color: #feea4e;
+            padding: 0 1.5rem;
+        }
+        .main-header_nav{
+            height: 100;
+            display: flex;
+            align-items: center;
+        }
+        .main-header_List{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .main-header_item{
+            margin: 0 1.5rem;
+            padding: 0;
+        }
+        .main-header_item{
+            text-decoration: none;
+            color: #fff;
+        }
+        .main-header_item a :hover,
+        .main-header_item a :active,
+        .main-header_item a.active{
+            color: #440997;
+        }
+        .main-form{
+            margin: 1rem;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-header_nav">
+            <ul class="main-header_List">
+                <li class="main-header_item"><a class="active" href="/">Shop</a></li>
+                <li class="main-header_item"><a href="/add-product">Add Product</a></li>
+            </ul>
+        </nav>
+    </header> 
+    <main>
+        <form class="main-form" action="/add-product" method="post">
+            <input type="text" placeholder="Product" name="title">
+            <button type="submit">Send</button>
+        </form>
+    </main>  
+    <main>
+        <li><a href="contact-us">Contact Us</a></li>
+    </main> 
+</body>
+</html>
